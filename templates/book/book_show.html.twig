@@ -1,0 +1,18 @@
+{% extends('base/base.html.twig') %}
+
+{# j'affiche le book sélectionné dans la page book_list
+## je récupère les éléments de la variable 'book' passé dans la méthode bookShow
+#}
+
+{% block content %}
+    <section class="book_show">
+        <article>
+            <h2 class="book_show_title">{{ book.title }}</h2>
+            <p class="book_show_type">{{ book.type }}</p>
+            <p class="book_show_summary">{{ book.summary }}</p>
+            <p class="book_show_pages">Nombre de pages: {{ book.nbPages }}</p>
+        </article>
+        <a class="book_show_retour" href="{{ path('book_list') }}">Retour à la liste</a>
+    </section>
+
+{% endblock %}

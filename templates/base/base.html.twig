@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Library Project</title>
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    </head>
+    <body>
+        {% include('base/_header.html.twig') %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

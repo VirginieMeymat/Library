@@ -1,0 +1,27 @@
+{% extends('base/base.html.twig') %}
+
+{# j'affiche les infos de l'author sélectionné dans la page author_list
+## je récupère les éléments de la variable 'author' passé dans la méthode authorShow
+#}
+
+{% block content %}
+    <section class="author_show">
+        <article>
+            <h2 class="author_show_title">{{ author.lastname }} {{ author.firstname }}</h2>
+            {# j'affiche la date de naissance de l'auteur #}
+            <p class="author_show_type">{{ author.birthdate|date('d/m/Y') }}
+                {# si la date de décès est renseignée, je l'affiche également #}
+                {% if author.deathdate != null %}
+                    - {{ author.deathdate|date('d/m/Y') }}
+                {% endif %}
+            </p>
+            {# si la bio est renseignée, je l'affiche #}
+            {% if author.bio != null %}
+                <p class="author_show_summary">{{ author.bio }}</p>
+            {% endif %}
+        </article>
+        {# lien de retour vers la liste des auteurs #}
+        <a class="author_show_retour" href="{{ path('author_list') }}">Retour à la liste</a>
+    </section>
+
+{% endblock %}

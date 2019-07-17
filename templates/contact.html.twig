@@ -1,0 +1,32 @@
+{% extends "base/base.html.twig" %}
+
+{# formulaire de contact #}
+{% block content %}
+    <section class="contact">
+        <h2>Contact</h2>
+        <form action="">
+
+            <input type="radio" id="mr" name="civilite" value="Mr" checked>
+            <label for="mr">Monsieur</label>
+            <input type="radio" id="mme" name="civilite" value="Mme">
+            <label for="mme">Madame</label>
+            <br /><br />
+
+            <label for="name">Nom</label><br />
+            <input type="text" id="name" size="40">
+            <br /><br />
+            <label for="firstname">Prénom</label><br />
+            <input type="text" id="firstname" size="40">
+            <br /><br />
+            <label for="subject">Objet</label><br />
+            <input type="text" id="subject" size="40"><br /><br />
+
+            <label for="commentaire">Commentaire</label><br />
+            <textarea class="contact_text" name="textcontact" id="commentaire" cols="60" rows="5" placeholder="Votre message..."></textarea>
+            <textarea class="contact_text_mob" name="textcontact" id="commentaire" cols="30" rows="5" placeholder="Votre message..."></textarea>
+
+            <input class="btn_form" type="submit" value="Envoyer">
+
+        </form>
+    </section>
+{% endblock %}

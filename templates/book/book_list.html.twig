@@ -1,0 +1,22 @@
+{% extends('base/base.html.twig') %}
+
+{# on affiche la liste des livres #}
+
+{% block content %}
+    <section class="book_list">
+        <div class="book_list_findtype">
+            <a class="book_list_type_lien" href="{{ path('book_list') }}">Tous</a> - <a class="book_list_type_lien" href="{{ path('book_type_list', {'type': 'roman'}) }}">Roman</a> - <a class="book_list_type_lien" href="{{ path('book_type_list', {'type': 'autobiographie'}) }}">Autobiographie</a>
+        </div>
+
+        {# si la variable type est true j'affiche le type de livre #}
+        {% if type %}
+            <h1 class="book_list_type">{{ type|title }}</h1>
+        {% endif %}
+
+        {# pour chaque élément du tableau books, je crée un article
+        ## j'affiche le titre et les 150 premiers caractères du résumé
+        ## le lien redirige vers la route book_show avec l'id du livre
+        #}
+        {% include('book/_get_book_list.html.twig') %}
+    </section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% for author in authors %}
+    <article class="author_list_article">
+        <a class="author_list_title" href="{{ path('author_show',{'id': author.id}) }}">{{ author.firstname }} {{ author.lastname }}</a>
+        {# si la biographie est renseignée, j'affiche les 150 premiers caractères #}
+        {% if author.bio != null %}
+            <p class="author_list_summary">{{ author.bio|slice(0,150) }}... <a class="author_list_lireplus" href="{{ path('author_show',{'id': author.id}) }}">Lire plus</a></p>
+        {% endif %}
+    </article>
+{% endfor %}

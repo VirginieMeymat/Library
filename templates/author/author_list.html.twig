@@ -1,0 +1,19 @@
+{% extends('base/base.html.twig') %}
+
+{# on affiche la liste des livres #}
+
+{% block content %}
+    <section class="author_list">
+        <form class="author_list_search" action="{{ path('author_name_list') }}" method="get">
+            <input class="author_list_input" type="text" size="25" name="search" placeholder="recherche...">
+            <input class="author_list_btn" type="submit">
+        </form>
+        {% if name %}
+            <p class="author_list_name">Votre recherche avec <strong>{{ name }}</strong></p>
+        {% endif %}
+
+        {# boucle for qui crée un article pour chaque auteur du array authors #}
+        {% include('author/_get_author_list.html.twig') %}
+
+    </section>
+{% endblock %}

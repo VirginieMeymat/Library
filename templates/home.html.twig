@@ -1,0 +1,14 @@
+{% extends('base/base.html.twig') %}
+
+{# page d'accueil #}
+
+{% block content %}
+    <section class="home">
+        {# affiche les 2 derniers livres enregistrés dans la base #}
+        <h2>Derniers livres</h2>
+        {% include('book/_get_book_list.html.twig') %}
+        {# affiche les 2 derniers auteurs enregistrés #}
+        <h2>Derniers auteurs</h2>
+        {% include('author/_get_author_list.html.twig') %}
+    </section>
+{% endblock %}

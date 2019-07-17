@@ -1,0 +1,6 @@
+{% for book in books %}
+    <article class="book_list_article">
+        <a class="book_list_title" href="{{ path('book_show',{'id': book.id}) }}">{{ book.title }}</a>
+        <p class="book_list_summary">{{ book.summary|slice(0,150) }}... <a class="book_list_lireplus" href="{{ path('book_show',{'id': book.id}) }}">Lire plus</a></p>
+    </article>
+{% endfor %}
