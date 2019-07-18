@@ -69,4 +69,65 @@ class BookController extends AbstractController
         );
 
     }
+
+    /**
+     * @Route("/book/insert", name="book_insert")
+     *
+     * insertion d'un enregistrement dans la table book
+     */
+    public function insertBook(EntityManagerInterface $entityManager)
+    {
+        // je crée une instance de l'entité Book
+        $book = new Book();
+        // j'assigne des valeurs aux différentes propriétés
+        // grâce aux setters de l'entité
+        $book->setTitle('Nouveau livre');
+        $book->setType('Fantastique');
+        $book->setNbPages(412);
+        $book->setSummary('Résumé du nouveau livre');
+
+        // Cette méthode signale à Doctrine que l'objet doit être enregistré
+        //sauvegarde ~= commit
+         $entityManager->persist($book);
+         //envoi ~= push
+        $entityManager->flush();
+
+        var_dump('Livre enregistré'); die;
+    }
+
+    /**
+     * @Route("/book/{id}/delete", name="book_delete")
+     *
+     * supprime un enregistrement dans la table book
+     */
+    public function removeBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager){
+        // je récupère le livre(entité) dont l'id est celui de la wildcard
+        $book = $bookRepository->find($id);
+
+        // Signale à Doctrine qu'on veut supprimer l'entité en argument de la base de données
+        $entityManager->remove($book);
+        // Met à jour la base à partir des objets signalés à Doctrine.
+        // Tant que cette méthode n'est pas appellée, rien n'est modifié en base.
+        $entityManager->flush();
+
+        var_dump('Livre supprimé'); die;
+    }
+
+    /**
+     * @Route("/book/{id}/update", name="book_update")
+     *
+     * modifie un enregistrement dans la table book
+     */
+    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager){
+        // je récupère le livre(entité) dont l'id est celui de la wildcard
+        $book = $bookRepository->find($id);
+
+        // je modifie l'enregistrement
+        $book->setTitle(('Titre modifié'));
+
+        // j'envoie vers la BDD
+        $entityManager->flush();
+
+        var_dump('Livre mis à jour'); die;
+    }
 }
