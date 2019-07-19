@@ -5,10 +5,12 @@ namespace App\Controller;
 
 
 use App\Entity\Book;
+use App\Form\BookType;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BookController extends AbstractController
@@ -141,5 +143,33 @@ class BookController extends AbstractController
         $entityManager->flush();
 
         var_dump('Livre mis à jour'); die;
+    }
+
+    /**
+     * @Route("/book/form/insert", name="book_form_insert")
+     */
+    public function bookFormInsert(Request $request, EntityManagerInterface $entityManager){
+        // je crée une instance de la classe Book
+        $book = new Book();
+        // je crée un nouveau formulaire pour l'entité Book
+        $form = $this->createForm(BookType::class, $book);
+        // je crée une vue du formulaire
+        $formBookView = $form->createView();
+
+        if ($request->isMethod('post')) {
+            // je récupère les données du form
+            $form->handleRequest($request);
+
+            // on enregistre l'entité créée
+            $entityManager->persist($book);
+            // on envoie la requête vers la bdd
+            $entityManager->flush();
+        }
+        return $this->render('book/book_form_insert.html.twig',
+            [
+                'formBookView' => $formBookView
+            ]
+        );
+
     }
 }

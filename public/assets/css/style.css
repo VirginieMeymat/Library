@@ -265,6 +265,13 @@ a{
     display: none;
 }
 
+
+/* formulaires */
+.author_form_text{
+    box-shadow: 0 0 3px #666666;
+    width: 200px;
+}
+
 @media screen and (max-width: 640px){
     .logo{
         width: 55%;

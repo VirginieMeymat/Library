@@ -1,0 +1,33 @@
+{% extends ('base/base.html.twig') %}
+
+{% block content %}
+    {% form_theme formAuthorView 'bootstrap_4_layout.html.twig' %}
+    {# pour un formulaire de base généré auto #}
+    {#{{ form(formAuthorView) }}#}
+
+    {# mieux vaut prendre la main et afficher chaque élément séparément #}
+
+    {{ form_start(formAuthorView) }}
+        <div>
+        {{ form_label(formAuthorView.lastname) }}
+        {{ form_widget(formAuthorView.lastname, {'attr': {'class': 'author_form_text'}}) }}
+        </div>
+        <div>
+        {{ form_label(formAuthorView.firstname) }}
+        {{ form_widget(formAuthorView.firstname) }}
+        </div>
+        <div>
+        {{ form_label(formAuthorView.birthdate) }}
+        {{ form_widget(formAuthorView.birthdate) }}
+        </div>
+        <div>
+        {{ form_label(formAuthorView.deathdate) }}
+        {{ form_widget(formAuthorView.deathdate) }}
+        </div>
+        <div>
+        {{ form_label(formAuthorView.bio) }}
+        {{ form_widget(formAuthorView.bio) }}
+        </div>
+        {{ form_widget(formAuthorView.Enregistrer) }}
+    {{ form_end(formAuthorView) }}
+{% endblock %}

@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Author;
 use App\Entity\Book;
+use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -118,5 +119,65 @@ class AuthorController extends AbstractController
         $entityManager->flush();
 
         var_dump('Auteur mis à jour'); die;
+    }
+
+    /**
+     * @Route("/author/form/insert", name="author_form_insert")
+     */
+    public function authorFormInsert(Request $request, EntityManagerInterface $entityManager)
+    {
+        $author = new Author();
+
+        $form = $this->createForm(AuthorType::class, $author);
+        $formAuthorView = $form->createView();
+
+        // si la méthode est POST // si le formulaire est envoyé
+        if ($request->isMethod('post')){
+            // le formulaire récupère les données de la requête POST
+            $form->handleRequest($request);
+
+            // on enregistre l'entité créée
+            $entityManager->persist($author);
+            // on envoie la requête vers la bdd
+            $entityManager->flush();
+        }
+
+        return $this->render('author/author_form_insert.html.twig',
+            [
+                'formAuthorView' => $formAuthorView
+            ]
+        );
+    }
+
+    /**
+     * @Route("/author/form/update/{id}", name="author_form_update")
+     */
+    public function authorFormUpdate($id, AuthorRepository $authorRepository, Request $request, EntityManagerInterface $entityManager)
+    {
+        // je récupère toutes les infos de l'auteur
+        $author = $authorRepository->find($id);
+
+        $form = $this->createForm(AuthorType::class, $author);
+        $formAuthorView = $form->createView();
+
+        // si la méthode est POST // si le formulaire est envoyé
+        if ($request->isMethod('post')) {
+            // le formulaire récupère les données de la requête POST
+            $form->handleRequest($request);
+
+            // pour sécuriser le contenu du form on vérifie les champs avec la méthode isValid
+            if ($form->isValid()) {
+                // on enregistre l'entité créée
+                $entityManager->persist($author);
+                // on envoie la requête vers la bdd
+                $entityManager->flush();
+            }
+        }
+
+        return $this->render('author/author_form_insert.html.twig',
+            [
+                'formAuthorView' => $formAuthorView
+            ]
+        );
     }
 }
