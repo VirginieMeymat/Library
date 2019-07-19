@@ -101,6 +101,11 @@ a{
 .book_list_title:hover{
     text-decoration: underline;
 }
+.book_list_author{
+    color: #666666;
+    font-size: 13px;
+    margin: 5px 0 0;
+}
 .book_list_summary{
     font-size: 12px;
     line-height: 150%;
@@ -118,6 +123,9 @@ a{
     font-family: Arial, sans-serif;
     font-size: 24px;
     font-weight: normal;
+}
+.book_show_author{
+    color: #666666;
 }
 .book_show_type{
     text-align: left;
@@ -185,6 +193,15 @@ a{
     background-color: rgba(248,97,46,0.8);
     box-shadow: 0 0 3px #F8612E;
     color: #FFFFFF;
+}
+.author_list_books{
+
+}
+.author_list_books_title{
+    font-size: 12px;
+    color: #004079;
+    font-style: italic;
+    display: block;
 }
 /* author_show // affichage du book sélectionné */
 .author_show_title{

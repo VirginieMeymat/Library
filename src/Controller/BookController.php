@@ -24,6 +24,7 @@ class BookController extends AbstractController
     {
         // j'utilise la méthode findAll du repository pour récupérer tous mes Book
         $books = $bookRepository->findAll();
+
         return $this->render('book/book_list.html.twig',
             [
                 'books' => $books,
@@ -45,9 +46,13 @@ class BookController extends AbstractController
         // j'utilise la méthode find du repository pour récupérer 1 élément de Book
         $book = $bookRepository->find($id);
 
+       /* $author = $book->getAuthor()->getFirstName();
+        $author .= " ".$book->getAuthor()->getLastName();*/
+
         return $this->render('book/book_show.html.twig',
             [
                 'book' => $book
+               /* 'author' => $author*/
             ]
         );
 
@@ -75,8 +80,11 @@ class BookController extends AbstractController
      *
      * insertion d'un enregistrement dans la table book
      */
-    public function insertBook(EntityManagerInterface $entityManager)
+    public function insertBook(EntityManagerInterface $entityManager, AuthorRepository $authorRepository)
     {
+        // je récupère un auteur en fonction de son id
+        $author = $authorRepository->find(5);
+
         // je crée une instance de l'entité Book
         $book = new Book();
         // j'assigne des valeurs aux différentes propriétés
@@ -85,6 +93,7 @@ class BookController extends AbstractController
         $book->setType('Fantastique');
         $book->setNbPages(412);
         $book->setSummary('Résumé du nouveau livre');
+        $book->setAuthor($author);
 
         // Cette méthode signale à Doctrine que l'objet doit être enregistré
         //sauvegarde ~= commit
@@ -118,12 +127,15 @@ class BookController extends AbstractController
      *
      * modifie un enregistrement dans la table book
      */
-    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager){
+    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager, AuthorRepository $authorRepository){
+        $author = $authorRepository->find(1);
+
         // je récupère le livre(entité) dont l'id est celui de la wildcard
         $book = $bookRepository->find($id);
 
         // je modifie l'enregistrement
-        $book->setTitle(('Titre modifié'));
+        $book->setAuthor($author);
+
 
         // j'envoie vers la BDD
         $entityManager->flush();

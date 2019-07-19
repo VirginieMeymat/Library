@@ -5,5 +5,12 @@
         {% if author.bio != null %}
             <p class="author_list_summary">{{ author.bio|slice(0,150) }}... <a class="author_list_lireplus" href="{{ path('author_show',{'id': author.id}) }}">Lire plus</a></p>
         {% endif %}
+
+        {# je liste des livres de l'auteur #}
+        <div class="author_list_books">
+            {% for book in author.books %}
+                <a href="{{ path('book_show', {'id' : book.id}) }}"><span class="author_list_books_title">{{ book.title }}</span></a>
+            {% endfor %}
+        </div>
     </article>
 {% endfor %}

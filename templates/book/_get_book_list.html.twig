@@ -1,6 +1,9 @@
 {% for book in books %}
     <article class="book_list_article">
         <a class="book_list_title" href="{{ path('book_show',{'id': book.id}) }}">{{ book.title }}</a>
+        {% if  book.author %}
+             <p class="book_list_author">{{ book.author.firstname }} {{ book.author.lastname }}</p>
+        {% endif %}
         <p class="book_list_summary">{{ book.summary|slice(0,150) }}... <a class="book_list_lireplus" href="{{ path('book_show',{'id': book.id}) }}">Lire plus</a></p>
     </article>
 {% endfor %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,23 @@ class Author
      * @ORM\Column(type="date", nullable=true)
      */
     private $deathdate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="author")
+     */
+    private $books;
+
+    // le constructeur est la méthode appelée automatiquement
+    public function __construct(){
+        // je déclare ma proporiété books en tant qu'array
+        // car elle peut contenir plusieurs livres
+        // ArrayCollection est une méthode symfony qui crée un "super" array
+        $this->books = new ArrayCollection();
+    }
+    public function getBooks()
+    {
+        return $this->books;
+    }
 
     /**
      * @ORM\Column(type="text", nullable=true)

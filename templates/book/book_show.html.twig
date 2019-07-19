@@ -8,7 +8,12 @@
     <section class="book_show">
         <article>
             <h2 class="book_show_title">{{ book.title }}</h2>
-            <p class="book_show_type">{{ book.type }}</p>
+            <p>
+                {% if book.author %}
+                    <span class="book_show_author">{{ book.author.firstname }} {{ book.author.lastname }}</span> -
+                {% endif %}
+                {{ book.type }}
+            </p>
             <p class="book_show_summary">{{ book.summary }}</p>
             <p class="book_show_pages">Nombre de pages: {{ book.nbPages }}</p>
         </article>

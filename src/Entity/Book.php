@@ -32,6 +32,11 @@ class Book
     private $nb_pages;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
+     */
+    private $author;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
@@ -88,4 +93,21 @@ class Book
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author): void
+    {
+        $this->author = $author;
+    }
+
 }
