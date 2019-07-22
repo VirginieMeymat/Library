@@ -85,6 +85,7 @@ class AuthorAdminController extends AbstractController
                 // on envoie la requête vers la bdd
                 $entityManager->flush();
             }
+            
             // je redirige vers la route qui affiche la liste des auteurs
             return $this->redirectToRoute('author_list_admin');
         } else {
