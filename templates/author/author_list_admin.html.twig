@@ -1,0 +1,37 @@
+{% extends('base/base_admin.html.twig') %}
+
+{# on affiche la liste des livres #}
+
+{% block content %}
+    <section class="author_list">
+        <h1 class="titre">Liste des auteurs</h1>
+        {#<form class="author_list_search" action="{{ path('author_name_list') }}" method="get">
+            <input class="author_list_input" type="text" size="25" name="search" placeholder="recherche...">
+            <input class="author_list_btn" type="submit">
+        </form>
+        {% if name %}
+            <p class="author_list_name">Votre recherche avec <strong>{{ name }}</strong></p>
+        {% endif %}#}
+        <div class="ajout">
+            <a class="bt_ajout" href="{{ path('author_form_insert') }}">Ajouter</a>
+        </div>
+
+        <table class="book_list_table" cellspacing="0" cellpadding="0" border="1">
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            {# boucle for qui crée un article pour chaque auteur du array authors #}
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.lastname }}</td>
+                    <td>{{ author.firstname }}</td>
+                    <td><a class="author_list_link" href="{{ path('author_form_update',{'id': author.id}) }}">Modifier</a></td>
+                    <td><a class="author_list_link" href="{{ path('author_delete',{'id': author.id}) }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends ('base/base_admin.html.twig') %}
+
+{% block content %}
+    {#{{ form(formBookView) }}#}
+
+    <section class="form">
+        <h1 class="titre">{{ title_page }}</h1>
+        {% form_theme formBookView 'bootstrap_4_layout.html.twig' %}
+        {# pour un formulaire de base généré auto #}
+        {#{{ form(formBookView) }}#}
+
+        {# mieux vaut prendre la main et afficher chaque élément séparément #}
+
+        {{ form_start(formBookView) }}
+        <div class="div_form">
+            {# {{ form_label(formBookView.title, 'Nom', {'label_attr': {'class': 'label'}}) }}#}
+            {{ form_widget(formBookView.title, {'attr': {'class': 'author_form_text', 'placeholder': 'Titre'}}) }}
+        </div>
+        <div class="div_form">
+            {#{{ form_label(formBookView.type, 'Prénom', {'label_attr': {'class': 'label'}}) }}#}
+            {{ form_widget(formBookView.type, {'attr': {'class': 'author_form_text', 'placeholder': 'Genre'}}) }}
+        </div>
+        <div class="div_form">
+            {{ form_label(formBookView.nb_pages, 'Nombre de pages', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(formBookView.nb_pages) }}
+        </div>
+        <div class="div_form">
+            {{ form_label(formBookView.summary, 'Résumé', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(formBookView.summary, {'attr': {'class': 'author_form_textarea'}}) }}
+        </div>
+        <div class="div_form">
+            {{ form_label(formBookView.author, 'Auteur', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(formBookView.author, {'attr': {'class': 'author_form_text'}}) }}
+        </div>
+        {{ form_widget(formBookView.Envoyer) }}
+        {{ form_end(formBookView) }}
+    </section>
+{% endblock %}

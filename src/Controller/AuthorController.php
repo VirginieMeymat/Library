@@ -89,22 +89,7 @@ class AuthorController extends AbstractController
         var_dump('Auteur enregistré'); die;
     }
 
-    /**
-     * @Route("/author/{id}/delete", name="author_delete")
-     *
-     * supprime un enregistrement dans la table author
-     */
-    public function removeAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager){
-        // je récupère le livre(entité) dont l'id est celui de la wildcard
-        $author = $authorRepository->find($id);
 
-        // je supprime l'enregistrement
-        $entityManager->remove($author);
-        // j'envoie vers la BDD
-        $entityManager->flush();
-
-        var_dump('Auteur supprimé'); die;
-    }
 
     /**
      * @Route("/author/{id}/update", name="author_update")
@@ -121,63 +106,5 @@ class AuthorController extends AbstractController
         var_dump('Auteur mis à jour'); die;
     }
 
-    /**
-     * @Route("/author/form/insert", name="author_form_insert")
-     */
-    public function authorFormInsert(Request $request, EntityManagerInterface $entityManager)
-    {
-        $author = new Author();
 
-        $form = $this->createForm(AuthorType::class, $author);
-        $formAuthorView = $form->createView();
-
-        // si la méthode est POST // si le formulaire est envoyé
-        if ($request->isMethod('post')){
-            // le formulaire récupère les données de la requête POST
-            $form->handleRequest($request);
-
-            // on enregistre l'entité créée
-            $entityManager->persist($author);
-            // on envoie la requête vers la bdd
-            $entityManager->flush();
-        }
-
-        return $this->render('author/author_form_insert.html.twig',
-            [
-                'formAuthorView' => $formAuthorView
-            ]
-        );
-    }
-
-    /**
-     * @Route("/author/form/update/{id}", name="author_form_update")
-     */
-    public function authorFormUpdate($id, AuthorRepository $authorRepository, Request $request, EntityManagerInterface $entityManager)
-    {
-        // je récupère toutes les infos de l'auteur
-        $author = $authorRepository->find($id);
-
-        $form = $this->createForm(AuthorType::class, $author);
-        $formAuthorView = $form->createView();
-
-        // si la méthode est POST // si le formulaire est envoyé
-        if ($request->isMethod('post')) {
-            // le formulaire récupère les données de la requête POST
-            $form->handleRequest($request);
-
-            // pour sécuriser le contenu du form on vérifie les champs avec la méthode isValid
-            if ($form->isValid()) {
-                // on enregistre l'entité créée
-                $entityManager->persist($author);
-                // on envoie la requête vers la bdd
-                $entityManager->flush();
-            }
-        }
-
-        return $this->render('author/author_form_insert.html.twig',
-            [
-                'formAuthorView' => $formAuthorView
-            ]
-        );
-    }
 }

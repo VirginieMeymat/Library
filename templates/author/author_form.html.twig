@@ -1,0 +1,36 @@
+{% extends ('base/base_admin.html.twig') %}
+
+{% block content %}
+    <section class="form">
+        <h1 class="titre">{{ title_page }}</h1>
+        {% form_theme formAuthorView 'bootstrap_4_layout.html.twig' %}
+        {# pour un formulaire de base généré auto #}
+        {#{{ form(formAuthorView) }}#}
+
+        {# mieux vaut prendre la main et afficher chaque élément séparément #}
+
+        {{ form_start(formAuthorView) }}
+            <div class="div_form">
+           {# {{ form_label(formAuthorView.lastname, 'Nom', {'label_attr': {'class': 'label'}}) }}#}
+            {{ form_widget(formAuthorView.lastname, {'attr': {'class': 'author_form_text', 'placeholder': 'Nom'}}) }}
+            </div>
+            <div class="div_form">
+            {#{{ form_label(formAuthorView.firstname, 'Prénom', {'label_attr': {'class': 'label'}}) }}#}
+            {{ form_widget(formAuthorView.firstname, {'attr': {'class': 'author_form_text', 'placeholder': 'Prénom'}}) }}
+            </div>
+            <div class="div_form">
+            {{ form_label(formAuthorView.birthdate, 'Date de naissance', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(formAuthorView.birthdate) }}
+            </div>
+            <div class="div_form">
+            {{ form_label(formAuthorView.deathdate, 'Date de décès', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(formAuthorView.deathdate) }}
+            </div>
+            <div class="div_form">
+            {{ form_label(formAuthorView.bio, 'Biographie', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(formAuthorView.bio, {'attr': {'class': 'author_form_textarea'}}) }}
+            </div>
+            {{ form_widget(formAuthorView.Enregistrer) }}
+        {{ form_end(formAuthorView) }}
+    </section>
+{% endblock %}
